@@ -35,7 +35,7 @@ const Login = () => {
 
   const LoginHandler = () => {
     if (generateOTP === userOTP) {
-        let data = {mobile:mobile, role:role};
+      let data = { mobile: mobile, role: role };
 
       localStorage.setItem("login_data", JSON.stringify(data));
       navigate("/");
