@@ -10,8 +10,8 @@ const CreatePostData = () => {
       {createPostData.length > 0 ? (
         <ul>
           {createPostData.map((postData) => (
-            <Link to={`post/${postData.id}`}>
               <li key={postData.id} className="flex border border-black mb-4">
+                  <Link to={`post/${postData.id}`}>
                 <div className="flex-1 flex">
                   <img
                     src={postData.image}
@@ -27,8 +27,10 @@ const CreatePostData = () => {
                     </time>
                   </div>
                 </div>
+             </Link>
               </li>
-            </Link>
+
+              
           ))}
         </ul>
       ) : (
