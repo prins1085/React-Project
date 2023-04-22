@@ -7,6 +7,7 @@ import CreatePostForm, {
   action as addPostDataAction,
 } from "./components/CreatePostForm";
 import { action as logoutAction } from "./pages/LogoutPage";
+import PostDetails from "./components/PostDetails";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,7 @@ const router = createBrowserRouter([
         element: <CreatePostForm />,
         action: addPostDataAction,
       },
+      { path: "post/:post_id", element: <PostDetails /> },
       { path: "logout", action: logoutAction },
     ],
   },
