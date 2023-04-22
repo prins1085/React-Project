@@ -18,7 +18,6 @@ const CreatePostForm = () => {
 
     if (title && description) {
       setFormIsValid(false);
-      console.log("hello");
       let postData = {
         id: Math.random().toString(),
         title: title,
@@ -26,7 +25,9 @@ const CreatePostForm = () => {
         image: image,
       };
 
-      localStorage.setItem("Post_Data", JSON.stringify(postData));
+      const existingData = JSON.parse(localStorage.getItem("Post_Data")) || [];
+      existingData.push(postData);
+      localStorage.setItem("Post_Data", JSON.stringify(existingData));
 
       setTitle("");
       setDescription("");
