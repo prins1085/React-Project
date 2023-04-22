@@ -2,15 +2,26 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
 import Root from "./pages/Root";
 import Login from "./components/Login";
-import HomePage from './pages/HomePage'
+import HomePage, { loader as loadPosts } from "./pages/HomePage";
+import CreatePostForm, {
+  action as addPostDataAction,
+} from "./components/CreatePostForm";
+import { action as logoutAction } from "./pages/LogoutPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
     children: [
-      { index: true, element: <HomePage /> },
-      { path: "login", element: <Login /> }],
+      { index: true, element: <HomePage />, loader: loadPosts },
+      { path: "login", element: <Login /> },
+      {
+        path: "create-post",
+        element: <CreatePostForm />,
+        action: addPostDataAction,
+      },
+      { path: "logout", action: logoutAction },
+    ],
   },
 ]);
 
