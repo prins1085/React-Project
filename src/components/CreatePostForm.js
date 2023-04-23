@@ -16,22 +16,28 @@ const CreatePostForm = () => {
       setFormIsValid(true);
     }
 
-    if (title && description) {
+    if (title && description && image) {
       setFormIsValid(false);
-      let postData = {
-        id: Math.random().toString(),
-        title: title,
-        description: description,
-        image: image,
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        let postData = {
+          id: Math.random().toString(),
+          title: title,
+          description: description,
+          image: reader.result,
+        };
+
+        const existingData =
+          JSON.parse(localStorage.getItem("Post_Data")) || [];
+        existingData.push(postData);
+        localStorage.setItem("Post_Data", JSON.stringify(existingData));
+
+        setTitle("");
+        setDescription("");
+        setImage(null);
       };
-
-      const existingData = JSON.parse(localStorage.getItem("Post_Data")) || [];
-      existingData.push(postData);
-      localStorage.setItem("Post_Data", JSON.stringify(existingData));
-
-      setTitle("");
-      setDescription("");
-      setImage(null);
+      reader.readAsDataURL(image);
     }
   };
 
@@ -41,9 +47,20 @@ const CreatePostForm = () => {
   const descriptionChangeHandler = (event) => {
     setDescription(event.target.value);
   };
+  // const imageChangeHandler = (event) => {
+  //   if (event.target.files && event.target.files[0]) {
+  //     setImage(URL.createObjectURL(event.target.files[0]));
+  //   }
+  // };
   const imageChangeHandler = (event) => {
     if (event.target.files && event.target.files[0]) {
-      setImage(URL.createObjectURL(event.target.files[0]));
+      const file = event.target.files[0];
+      setImage(file);
+      const reader = new FileReader();
+      reader.onload = () => {
+        // Do something with reader.result
+      };
+      reader.readAsDataURL(file);
     }
   };
   return (
