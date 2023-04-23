@@ -34,11 +34,7 @@ const EditPopUp = (props) => {
   const descriptionChangeHandler = (event) => {
     setUpdateDescription(event.target.value);
   };
-  // const imageChangeHandler = (event) => {
-  //   if (event.target.files && event.target.files[0]) {
-  //     setUpdateImage(URL.createObjectURL(event.target.files[0]));
-  //   }
-  // };
+ 
 
   const imageChangeHandler = (event) => {
     if (event.target.files && event.target.files[0]) {
