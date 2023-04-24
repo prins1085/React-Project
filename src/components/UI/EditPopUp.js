@@ -4,49 +4,59 @@ import Input from "./Input";
 const EditPopUp = (props) => {
   const [updateTitle, setUpdateTitle] = useState(props.PostData.title);
   const [updateDescription, setUpdateDescription] = useState(props.PostData.description);
-  const [updateImage, setUpdateImage] = useState(props.PostData.image);
+  const [updateImage, setUpdateImage] = useState(null);
   const [formIsValid, setFormIsValid] = useState(false);
 
-  const updateDataHandler = () => {
-    if (updateTitle.trim().length === 0 || updateDescription.trim().length === 0) {
-      setFormIsValid(true);
-    }
-
-    if (updateTitle && updateDescription && updateImage) {
-      setFormIsValid(false);
-
-      const reader = new FileReader();
-      reader.onload = () => {
-      let updatedData = {
-        title: updateTitle,
-        description: updateDescription,
-        image: reader.result,
-      };
-      props.onUpdate(updatedData);
-    };
-    reader.readAsDataURL(updateImage);
-    
-    }
-  };
   const titleChangeHandler = (event) => {
     setUpdateTitle(event.target.value);
   };
   const descriptionChangeHandler = (event) => {
     setUpdateDescription(event.target.value);
   };
- 
 
   const imageChangeHandler = (event) => {
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
       setUpdateImage(file);
       const reader = new FileReader();
-      reader.onload = () => {
-        // Do something with reader.result
-      };
       reader.readAsDataURL(file);
     }
   };
+
+  const updateDataHandler = () => {
+    if (updateTitle.trim().length === 0 || updateDescription.trim().length === 0) {
+      setFormIsValid(true);
+    } else {
+      setFormIsValid(false);
+
+      const reader = new FileReader();
+      reader.onload = () => {
+      let updatedData = {
+        id: props.PostData.id,
+        title: updateTitle,
+        description: updateDescription,
+        image: updateImage ? reader.result : props.PostData.image,
+      };
+      props.onUpdate(updatedData);
+    };
+    if (updateImage) {
+      reader.readAsDataURL(updateImage);
+    } else {
+      let updatedData = {
+        id: props.PostData.id,
+        title: updateTitle,
+        description: updateDescription,
+        image: props.PostData.image,
+      };
+      props.onUpdate(updatedData);
+    }
+    
+    }
+  };
+
+ 
+
+  
 
   return (
     <div className="fixed top-0 left-0 right-0 bottom-0 bg-gray-500 bg-opacity-50 flex justify-center items-center">
