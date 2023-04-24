@@ -53,14 +53,16 @@ const PostDetails = () => {
       )}
       <div className="min-h-screen flex justify-center bg-gray-100">
         <div className="container mx-auto h-fit bg-white rounded-lg overflow-hidden shadow-2xl mt-5">
-          <img
-            className="w-full h-[500px]"
-            src={PostData.image}
-            alt="Post_image"
-          />
+        {PostData && (
+            <img
+              className="w-full h-[500px]"
+              src={PostData.image}
+              alt="Post_image"
+            />
+          )}
           <div className="p-4">
-            <h1 className="text-3xl font-bold mb-2">{PostData.title}</h1>
-            <p className="text-gray-700 text-lg mb-4">{PostData.description}</p>
+            <h1 className="text-3xl font-bold mb-2">{PostData?.title}</h1>
+            <p className="text-gray-700 text-lg mb-4">{PostData?.description}</p>
             <div className="flex md:justify-end justify-center flex-wrap">
               <button
                 className="px-4 py-2 bg-blue-500 text-white rounded-md mr-2"
