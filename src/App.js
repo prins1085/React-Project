@@ -3,10 +3,7 @@ import "./App.css";
 import Root from "./pages/Root";
 import Login from "./components/Login";
 import HomePage from "./pages/HomePage";
-import CreatePostForm, {
-  action as addPostDataAction,
-} from "./components/CreatePostForm";
-import { action as logoutAction } from "./pages/LogoutPage";
+import CreatePostForm from "./components/CreatePostForm";
 import PostDetails from "./components/PostDetails";
 import { checkRoleLoader } from "./util/Auth";
 
@@ -20,7 +17,7 @@ const router = createBrowserRouter([
       {
         path: "create-post",
         element: <CreatePostForm />,
-        action: addPostDataAction,
+        // action: addPostDataAction,
         loader: checkRoleLoader,
       },
       {
@@ -28,7 +25,7 @@ const router = createBrowserRouter([
         element: <PostDetails />,
         loader: checkRoleLoader,
       },
-      { path: "logout", action: logoutAction },
+      
     ],
   },
 ]);
