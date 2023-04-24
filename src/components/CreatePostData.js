@@ -12,11 +12,11 @@ const CreatePostData = () => {
           {createPostData.map((postData) => (
               <li key={postData.id} className="flex border border-black mb-4">
                   <Link to={`post/${postData.id}`}>
-                <div className="flex-1 flex">
+                <div className="flex-1 flex flex-wrap">
                   <img
                     src={postData.image}
                     alt={postData.title}
-                    className="w-1/6 object-cover"
+                    className="md:w-52 object-cover sm:w-full"
                   />
                   <div className="flex-1 p-2">
                     <h2 className="text-lg font-semibold mb-2">
