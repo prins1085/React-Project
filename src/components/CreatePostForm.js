@@ -105,7 +105,7 @@ const CreatePostForm = () => {
       reader.readAsDataURL(file);
     }
   };
-//trye
+
   return (
     <>
       <div className="bg-gray-100">
