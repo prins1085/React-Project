@@ -5,7 +5,8 @@ import Login from "./components/Login";
 import HomePage from "./pages/HomePage";
 import CreatePostForm from "./components/CreatePostForm";
 import PostDetails from "./components/PostDetails";
-import { checkRoleLoader } from "./util/Auth";
+import { checkCreateFormLoader, checkRoleLoader } from "./util/Auth";
+import ExplorePostData from "./components/ExplorePostData";
 
 const router = createBrowserRouter([
   {
@@ -18,14 +19,18 @@ const router = createBrowserRouter([
         path: "create-post",
         element: <CreatePostForm />,
         // action: addPostDataAction,
-        loader: checkRoleLoader,
+        loader: checkCreateFormLoader,
       },
       {
         path: "post/:post_id",
         element: <PostDetails />,
         loader: checkRoleLoader,
       },
-      
+      {
+        path: "explore-post",
+        element: <ExplorePostData />,
+        loader: checkRoleLoader,
+      },
     ],
   },
 ]);

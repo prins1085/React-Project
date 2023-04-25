@@ -19,3 +19,15 @@ export function checkRoleLoader(){
     }
     return null;
 }
+
+export function checkCreateFormLoader(){
+    const role = getAuthRole();
+
+    if(!role){
+        return redirect('/login');
+    }
+    if(role === "user"){
+        return redirect('/');
+    }
+    return null;
+}

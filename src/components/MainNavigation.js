@@ -22,7 +22,7 @@ const MainNavigation = () => {
           <Link to="">Project Name</Link>
         </div>
         <div className="flex gap-7">
-          <Link to="/" className="text-gray-700 hover:text-gray-900">
+          <Link to="/explore-post" className="text-gray-700 hover:text-gray-900">
             Explore Post
           </Link>
           {role === "admin" && (

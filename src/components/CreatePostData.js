@@ -6,6 +6,7 @@ const CreatePostData = () => {
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [PostData, setPostData] = useState([]);
   const createPostData = JSON.parse(localStorage.getItem("Post_Data")) || [];
+  const loginData = JSON.parse(localStorage.getItem('login_data'));
 
   const navigate = useNavigate();
 
@@ -65,7 +66,7 @@ const CreatePostData = () => {
                     </div>
                   </div>
                 </Link>
-                <div className="flex flex-wrap items-center">
+               {loginData.role === 'admin' && <div className="flex flex-wrap items-center">
                   <button
                     className="px-4 py-2 bg-blue-500 text-white rounded-md mr-2 h-fit"
                     onClick={() => {
@@ -82,7 +83,7 @@ const CreatePostData = () => {
                   >
                     Delete
                   </button>
-                </div>
+                </div>}
               </li>
             ))}
           </ul>
