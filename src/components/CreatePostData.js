@@ -46,7 +46,7 @@ const CreatePostData = () => {
         />
       )}
       <div className="md:mx-10 my-5 mx-3 ">
-        <h1 className="text-3xl font-bold mb-4">Created Posts</h1>
+        <h1 className="text-3xl font-bold mb-4">Created Post</h1>
         {createPostData.length > 0 ? (
           <ul>
             {createPostData.map((postData) => (
