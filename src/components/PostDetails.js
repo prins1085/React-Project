@@ -9,8 +9,9 @@ const PostDetails = () => {
   const navigate = useNavigate();
 
   const createPostData = JSON.parse(localStorage.getItem("Post_Data"));
-
   const PostData = createPostData.find((obj) => obj.id === param.post_id);
+  const loginData = JSON.parse(localStorage.getItem('login_data'));
+
 
   const editHandler = () => {
     setEditModalOpen(true);
@@ -63,7 +64,7 @@ const PostDetails = () => {
             <h1 className="text-3xl font-bold mb-2">{PostData?.title}</h1>
             <p className="text-gray-700 text-lg mb-4">{PostData?.description}</p>
             <div className="flex md:justify-end justify-center flex-wrap">
-              <button
+              {loginData.role === 'admin' && <> <button
                 className="px-4 py-2 bg-blue-500 text-white rounded-md mr-2"
                 onClick={editHandler}
               >
@@ -74,7 +75,7 @@ const PostDetails = () => {
                 onClick={deleteHandler}
               >
                 Delete
-              </button>
+              </button></>}
               <button
                 className="px-4 py-2 bg-yellow-500 text-white rounded-md"
                 onClick={backHandler}

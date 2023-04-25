@@ -9,25 +9,17 @@ const CreatePostForm = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState(null);
-  const [formIsValid, setFormIsValid] = useState(false);
+  const [formIsInValid, setFormIsInValid] = useState(false);
 
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   if (APIResponse === 201) {
-  //     toast.success("Data Saved Successfully");
-  //   } else if (APIResponse === 404) {
-  //     toast.error("Data Not Send");
-  //   }
-  // }, [APIResponse]);
-
   const addPostHandler = () => {
-    if (title.trim().length === 0 || description.trim().length === 0) {
-      setFormIsValid(true);
+    if (title.trim().length === 0 || description.trim().length === 0 || image === null) {
+      setFormIsInValid(true);
     }
 
     if (title && description && image) {
-      setFormIsValid(false);
+      setFormIsInValid(false);
 
       const reader = new FileReader();
       reader.onload = () => {
@@ -47,18 +39,17 @@ const CreatePostForm = () => {
         setDescription("");
         setImage(null);
 
-        navigate("/")
+        navigate("/");
       };
       reader.readAsDataURL(image);
     }
   };
 
-  
   const addRemotePostHandler = async () => {
-    if (title.trim().length === 0 || description.trim().length === 0) {
-      setFormIsValid(true);
+    if (title.trim().length === 0 || description.trim().length === 0 || image === null) {
+      setFormIsInValid(true);
     } else {
-      setFormIsValid(false);
+      setFormIsInValid(false);
 
       if (title && description && image) {
         let postData = {
@@ -68,27 +59,25 @@ const CreatePostForm = () => {
           image: image,
         };
 
-          const response = await fetch(
-            "https://jsonplaceholder.typicode.com/posts",
-            {
-              method: "post",
-              body: postData,
-            }
-          );
-
-          if (response.status === 201) {
-            toast.success("Data Saved Successfully");
-            setTitle("");
-            setDescription("");
-            setImage(null);
-          } else if(response.status === 404) {
-            toast.error("Not Found");
+        const response = await fetch(
+          "https://jsonplaceholder.typicode.com/posts",
+          {
+            method: "post",
+            body: postData,
           }
-       
+        );
+
+        if (response.status === 201) {
+          toast.success("Data Saved Successfully");
+          setTitle("");
+          setDescription("");
+          setImage(null);
+        } else if (response.status === 404) {
+          toast.error("Not Found");
+        }
       }
     }
   };
-
 
   const titleChangeHandler = (event) => {
     setTitle(event.target.value);
@@ -111,9 +100,7 @@ const CreatePostForm = () => {
       <div className="bg-gray-100">
         <div className="flex justify-center items-center h-[100vh]">
           <div className="w-full max-w-md">
-            <div
-              className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
-            >
+            <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
               <h2 className="text-2xl font-bold mb-6 text-center">
                 Create Post
               </h2>
@@ -126,8 +113,8 @@ const CreatePostForm = () => {
                 value={title}
                 onChange={titleChangeHandler}
               />
-              {formIsValid && title.trim().length <= 0 ? (
-                <p className="text-red-600 mt-[-10px]">
+              {formIsInValid && title.trim().length <= 0 ? (
+                <p className="text-red-600">
                   Please Enter Valid Title
                 </p>
               ) : (
@@ -145,7 +132,7 @@ const CreatePostForm = () => {
                   value={description}
                   onChange={descriptionChangeHandler}
                 />
-                {formIsValid && description.trim().length <= 0 ? (
+                {formIsInValid && description.trim().length <= 0 ? (
                   <p className="text-red-600">Please Enter Valid Description</p>
                 ) : (
                   ""
@@ -158,6 +145,13 @@ const CreatePostForm = () => {
                 label="Image"
                 onChange={imageChangeHandler}
               />
+               {formIsInValid && image === null ? (
+                <p className="text-red-600">
+                  Please Select An Image
+                </p>
+              ) : (
+                ""
+              )}
               <Button type="button" onClick={addPostHandler}>
                 Add Local Post
               </Button>
@@ -172,5 +166,3 @@ const CreatePostForm = () => {
 };
 
 export default CreatePostForm;
-
-
