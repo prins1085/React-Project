@@ -4,7 +4,7 @@ import EditPopUp from "./UI/EditPopUp";
 
 const CreatePostData = () => {
   const [editModalOpen, setEditModalOpen] = useState(false);
-  const [PostData, setPostData] = useState([]);
+  const [postData, setPostData] = useState([]);
   const createPostData = JSON.parse(localStorage.getItem("Post_Data")) || [];
   const loginData = JSON.parse(localStorage.getItem('login_data'));
 
@@ -15,7 +15,7 @@ const CreatePostData = () => {
     setEditModalOpen(true);
   };
 
-  const closeEditModel = () => {
+  const closeEditModal = () => {
     setEditModalOpen(false);
   };
 
@@ -27,19 +27,21 @@ const CreatePostData = () => {
     localStorage.setItem("Post_Data", JSON.stringify(updatedPostData));
     setEditModalOpen(false);
   };
+
   const deleteHandler = (Id) => {
     console.log(Id);
-    const filterData = createPostData.filter((postId) => postId.id !== Id);
-    console.log(filterData);
-    localStorage.setItem("Post_Data", JSON.stringify(filterData));
+    const filteredData = createPostData.filter((postId) => postId.id !== Id);
+    console.log(filteredData);
+    localStorage.setItem("Post_Data", JSON.stringify(filteredData));
     navigate("/");
   };
+
   return (
     <>
       {editModalOpen && (
         <EditPopUp
-          onConfirm={closeEditModel}
-          PostData={PostData}
+          onConfirm={closeEditModal}
+          PostData={postData}
           onUpdate={updateDataHandler}
         />
       )}
@@ -48,42 +50,42 @@ const CreatePostData = () => {
         {createPostData.length > 0 ? (
           <ul>
             {createPostData.map((postData) => (
-              <li key={postData.id} className="flex border border-black mb-4">
+              <li key={postData.id} className="flex flex-wrap border border-black mb-4">
                 <Link to={`post/${postData.id}`}>
-                  <div className="flex-1 flex flex-wrap">
-                    <img
-                      src={postData.image}
-                      alt={postData.title}
-                      className="md:w-52 object-cover sm:w-full"
-                    />
-                    <div className="flex-1 p-2">
-                      <h2 className="text-lg font-semibold mb-2">
-                        {postData.title}
-                      </h2>
-                      <div className="text-gray-600 max-w-prose text-ellipsis">
-                        {postData.description}
-                      </div>
-                    </div>
-                  </div>
+                  <img
+                    src={postData.image}
+                    alt={postData.title}
+                    className="md:w-52 object-cover sm:w-full"
+                  />
                 </Link>
-               {loginData.role === 'admin' && <div className="flex flex-wrap items-center">
-                  <button
-                    className="px-4 py-2 bg-blue-500 text-white rounded-md mr-2 h-fit"
-                    onClick={() => {
-                      editHandler(postData.id);
-                    }}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    className="px-4 py-2 bg-red-500 text-white rounded-md mr-2 h-fit"
-                    onClick={() => {
-                      deleteHandler(postData.id);
-                    }}
-                  >
-                    Delete
-                  </button>
-                </div>}
+                <div className="flex-1 p-2 space-y-2">
+                  <h2 className="text-lg font-semibold mb-2">
+                    {postData.title}
+                  </h2>
+                  <div className="text-gray-600">
+                    {postData.description}
+                  </div>
+                  {loginData.role === 'admin' && (
+                    <div className="flex flex-wrap items-center">
+                      <button
+                        className="px-4 py-2 bg-blue-500 text-white rounded-md mr-2 h-fit"
+                        onClick={() => {
+                          editHandler(postData.id);
+                        }}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        className="px-4 py-2 bg-red-500 text-white rounded-md mr-2 h-fit"
+                        onClick={() => {
+                          deleteHandler(postData.id);
+                        }}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  )}
+                </div>
               </li>
             ))}
           </ul>
