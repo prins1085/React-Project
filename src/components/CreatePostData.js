@@ -90,7 +90,7 @@ const CreatePostData = () => {
             ))}
           </ul>
         ) : (
-          <p>No Posts Created.</p>
+          <p>No Posts Created...</p>
         )}
       </div>
     </>
