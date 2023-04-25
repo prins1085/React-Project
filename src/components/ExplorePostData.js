@@ -16,6 +16,14 @@ const ExplorePostData = () => {
 
 const filteredPosts = posts.filter(post => post.title.toLowerCase().includes(searchTitle.toLowerCase()));
 
+
+const ellipsisBody = (body, bodylength) => {
+  if (body.length <= bodylength) {
+    return body;
+  } else {
+    return body.slice(0, bodylength) + "...";
+  }
+};
   return (
     <div className="md:mx-10 my-10 mx-3 ">
         <div className="flex justify-between flex-wrap">
@@ -46,9 +54,9 @@ const filteredPosts = posts.filter(post => post.title.toLowerCase().includes(sea
                 />
                 <div className="flex-1 p-2">
                   <h2 className="text-lg font-semibold mb-2">{post.title}</h2>
-                  <time className="text-gray-600 max-w-prose text-ellipsis">
-                    {post.body}
-                  </time>
+                  <div className="text-gray-600">
+                  {ellipsisBody(post.body, 120)}
+                  </div>
                 </div>
               </div>
             </li>
