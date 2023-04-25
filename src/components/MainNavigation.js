@@ -1,22 +1,35 @@
-import React, { Fragment } from "react";
-import { Link } from "react-router-dom";
+import React, { Fragment, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import LogoutPopUp from "./UI/LogoutPopUp";
 
 const MainNavigation = () => {
+  const [logoutPopUpOpen, setLogoutPopUpOpen] = useState(false);
   const storedData = localStorage.getItem("login_data");
   const parsedData = JSON.parse(storedData);
   const role = parsedData?.role;
 
+  const navigate = useNavigate();
+
 
   const logoutHandler = () => {
-    const confirmLogout = window.confirm("Are you sure you want to logout?");
-    if(confirmLogout){
+    setLogoutPopUpOpen(true);
+   
+  }
 
-        localStorage.removeItem('login_data');
-    }
+  const LogoutAction = () => {
+    localStorage.removeItem('login_data');
+    setLogoutPopUpOpen(false);
+    navigate('/login');
+
+  }
+
+  const closeLogoutPopUp = () => {
+    setLogoutPopUpOpen(false);
   }
 
   return (
     <Fragment>
+      {logoutPopUpOpen && <LogoutPopUp onCancel={closeLogoutPopUp} onConfirm={LogoutAction}/>}
       <header className="flex justify-between bg-gray-300 py-4 md:px-6">
         <div className="text-xl font-bold">
           <Link to="">Project Name</Link>
