@@ -21,7 +21,6 @@ const PostDetails = () => {
   };
 
   const updateDataHandler = (updatedData) => {
-    console.log(updatedData);
     const updatedPostData = createPostData.map((data) =>
       data.id === updatedData.id ? updatedData : data
     );
