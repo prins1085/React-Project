@@ -55,7 +55,7 @@ const CreatePostData = () => {
                   <img
                     src={postData.image}
                     alt={postData.title}
-                    className="md:w-52 object-cover sm:w-full"
+                    className="md:w-52 object-cover sm:w-full md:h-32" 
                   />
                 </Link>
                 <div className="flex-1 p-2 space-y-2">
