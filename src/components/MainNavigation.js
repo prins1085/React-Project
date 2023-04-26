@@ -37,7 +37,7 @@ const MainNavigation = () => {
       )}
       <header className="flex justify-between bg-gray-300 py-4 md:px-6">
         <div className="text-xl font-bold">
-          <Link to="">Project Name</Link>
+          <Link to="">Post App</Link>
         </div>
         <div className="flex gap-7">
           <Link
