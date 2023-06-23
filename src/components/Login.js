@@ -22,7 +22,7 @@ const Login = () => {
       validationSchema: LoginValidation,
       onSubmit: (values, action) => {
         const otp = Math.floor(1000 + Math.random() * 9000);
-        console.log("OTP = " + otp);
+        alert("OTP = " + otp);
         setGenerateOTP(otp);
         setMobile(values.mobile);
         setRole(values.role);
